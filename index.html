@@ -314,14 +314,23 @@
         </main>
     </div>
 
-    <script>
+    <script type="module">
         // --- CONFIGURATION ---
         const TEAM_ID = 415956; // Your CTFTime Team ID
         
         // Supabase Config
+        import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
         const SUPABASE_URL = 'https://laoqgmeaxbikeitfzgkh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_w0dkhf3MvSHcwET_YJNb8g_-drftIMk'; 
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // FIX: Make supabase global so initTrophyRoom() and initRoster() can see it
+        window.supabase = supabase;
+
+        // FIX: Make navigation functions global so HTML buttons can find them
+        window.navTo = navTo;
+        window.toggleMenu = toggleMenu;
+        window.changeWriteupPage = changeWriteupPage;
         
         const statusIndicator = document.getElementById('db-status');
         function setOnline() {
